@@ -98,6 +98,9 @@ class Former
         case 'files':
           $callClass = 'File';
           break;
+        case 'append':
+          $callClass = 'Append';
+          break;
         default:
           $callClass = 'Input';
           break;
