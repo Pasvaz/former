@@ -42,19 +42,32 @@ class Helpers
     // If nothing was given, return nothing, bitch
     if(!$key) return null;
 
+    //\Log::former('Called for '.$key.' by '.var_export(debug_backtrace(), true));
+    if(is_string($key) and strpos($key,'.')===false) {
+      \Log::former('Skipping useless '.$key);
+      return $key;
+    }
+
+    //\Log::former('Translating '.$key.' with fallback '.$fallback);
     // If no fallback, use the key
     if(!$fallback) $fallback = $key;
 
     // Assure we don't already have a Lang object
-    if($key instanceof Lang) return $key->get();
-
+    if($key instanceof Lang) {
+      \Log::former('Having it '.$key);
+      return $key->get();
+    }
     // Search for the key itself
+    \Log::former('Getting '.$key.' get null');
     $translation = Lang::line($key)->get(null, '');
 
     // If not found, search in the field attributes
-    if(!$translation) $translation =
-      Lang::line(Config::get('translate_from').'.'.$key)->get(null,
-      $fallback);
+    if(!$translation) 
+    {
+      \Log::former('Getting with translate_from '.Config::get('translate_from').'.'.$key.' get null fallback: '.$fallback);
+      $translation =
+      Lang::line(Config::get('translate_from').'.'.$key)->get(null, $fallback);
+    }
 
     // If we were returned a translations array
     if (is_array($translation)) $translation = $fallback;
