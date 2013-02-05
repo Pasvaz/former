@@ -67,9 +67,9 @@ class Append extends \Former\Fields\Input
    * @param  string $label_for    id of the element to label
    * @param  string $icon         icon name
    */
-  public function with_labeled_icon($label_for, $icon)
+  public function with_labeled_icon($label_for, $icon, $attributes = array())
   {
-    $this->append = '<span class="add-on"><label for="'.$label_for.'"><i class="'.$icon.'"></i></label></span>';
+    $this->append = '<span class="add-on"><label for="'.$label_for.'"><i class="'.$icon.'" '.\HTML::attributes($attributes).'></i></label></span>';
   }
 
   /**

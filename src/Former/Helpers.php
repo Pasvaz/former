@@ -44,7 +44,7 @@ class Helpers
 
     //\Log::former('Called for '.$key.' by '.var_export(debug_backtrace(), true));
     if(is_string($key) and strpos($key,'.')===false) {
-      \Log::former('Skipping useless '.$key);
+      //\Log::former('Skipping useless '.$key);
       return $key;
     }
 
@@ -54,11 +54,9 @@ class Helpers
 
     // Assure we don't already have a Lang object
     if($key instanceof Lang) {
-      \Log::former('Having it '.$key);
       return $key->get();
     }
     // Search for the key itself
-    \Log::former('Getting '.$key.' get null');
     $translation = Lang::line($key)->get(null, '');
 
     // If not found, search in the field attributes
